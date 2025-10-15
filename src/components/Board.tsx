@@ -1,38 +1,37 @@
+"use client";
+
+import { initializeBoard } from "@/lib/initialize";
+import { randomIndex } from "@/lib/random";
+import { useBoardStore } from "@/stores/board-store";
+import { tileColor } from "@/utils/tile-color";
+import { useEffect } from "react";
+
 export default function Board() {
-  const mat = [
-    [0, 0, 0, 0],
-    [0, 4, 2, 0],
-    [0, 0, 16, 0],
-    [0, 32, 0, 0],
-  ];
+  const { board, setBoard } = useBoardStore();
+
+  useEffect(() => {
+    const initBoard = initializeBoard(board, randomIndex);
+    setBoard(initBoard);
+  }, []);
+
   return (
-    <>
+    <div className='black'>
       <table className=' text-slate-900 font-bold text-xl'>
         <tbody>
-          {mat.map((row, rowIndex) => (
-            <tr key={rowIndex} className='border border-slate-800'>
+          {board.map((row, rowIndex) => (
+            <tr key={rowIndex} className=''>
               {row.map((cell, cellIndex) => (
                 <td
                   key={cellIndex}
-                  className={`border border-slate-800 p-6 w-28 h-24 text-center ${
-                    cell <= 3
-                      ? "bg-amber-50"
-                      : cell <= 8
-                      ? "bg-amber-200"
-                      : cell <= 16
-                      ? "bg-orange-200"
-                      : cell <= 200
-                      ? "bg-red-300"
-                      : "bg-red-500"
-                  }`}
+                  className={`bg-[#cdc1b4] p-6 w-20 h-20 border text-center  rounded-xl shadow-inner ${tileColor[cell]}`}
                 >
-                  <div className=" border p-2.5 shadow-xl rounded">{cell}</div>
+                  <div>{cell !== 0 && cell}</div>
                 </td>
               ))}
             </tr>
           ))}
         </tbody>
       </table>
-    </>
+    </div>
   );
 }
