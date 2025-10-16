@@ -16,14 +16,18 @@ export default function Board() {
 
   return (
     <div className='black'>
-      <table className=' text-slate-900 font-bold text-xl'>
+      <table className=' text-slate-900 font-bold'>
         <tbody>
           {board.map((row, rowIndex) => (
             <tr key={rowIndex} className=''>
               {row.map((cell, cellIndex) => (
                 <td
                   key={cellIndex}
-                  className={`bg-[#cdc1b4] p-6 w-20 h-20 border text-center  rounded-xl shadow-inner ${tileColor[cell]}`}
+                  className={`bg-[#cdc1b4]  ${
+                    board.length > 6 ? "w-10 h-10 p-2" : "w-20 h-20 p-4"
+                  } border text-center  rounded-xl shadow-inner ${
+                    tileColor[cell]
+                  } transition-all`}
                 >
                   <div>{cell !== 0 && cell}</div>
                 </td>

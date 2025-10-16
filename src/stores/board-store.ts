@@ -1,3 +1,4 @@
+import { createCustomBoard } from "@/lib/createCustomBoard";
 import { Board, Result } from "@/types/board";
 import { create } from "zustand";
 
@@ -5,10 +6,15 @@ export interface BoardState {
   board: Board;
   score: number;
   result: Result | undefined;
+  boardLength: number;
 
   setBoard: (newBoard: Board) => void;
   setScore: (newScore: number) => void;
   setResult: (newResult: Result) => void;
+  setBoardLength: (newLength: number) => void;
+  resetBoard: () => void;
+  resetScore: () => void;
+  resetResult: () => void;
 }
 
 export const useBoardStore = create<BoardState>((set) => ({
@@ -21,6 +27,7 @@ export const useBoardStore = create<BoardState>((set) => ({
   ],
   score: 0,
   result: undefined,
+  boardLength: 4,
 
   // setter functions
   // set the board
@@ -35,7 +42,7 @@ export const useBoardStore = create<BoardState>((set) => ({
   setScore: (newScore: number) => {
     set((state: BoardState) => ({
       ...state,
-      score: newScore,
+      score: state.score + newScore,
     }));
   },
 
@@ -46,5 +53,28 @@ export const useBoardStore = create<BoardState>((set) => ({
       result: newResult,
     }));
   },
+  resetBoard: () => {
+    set((state: BoardState) => ({
+      ...state,
+      board: createCustomBoard(state.boardLength),
+    }));
+  },
+  setBoardLength: (newLength: number) => {
+    set((state) => ({
+      ...state,
+      boardLength: newLength,
+    }));
+  },
+  resetScore: () => {
+    set((state) => ({
+      ...state,
+      score: 0,
+    }));
+  },
+  resetResult: () => {
+    set((state) => ({
+      ...state,
+      result: undefined,
+    }));
+  },
 }));
-

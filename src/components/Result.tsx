@@ -1,8 +1,11 @@
+"use client";
 import React from "react";
 import Score from "./Score";
+import { useBoardStore } from "@/stores/board-store";
+import { Result as ResultType } from "@/types/board";
 
 export default function Result() {
-  const result = "WIN";
+  const result: ResultType = useBoardStore((state) => state.result);
   return (
     <div className='flex gap-10 justify-between items-center text-2xl px-3  py-1 '>
       <Score />
@@ -11,10 +14,14 @@ export default function Result() {
         Result:{" "}
         <span
           className={`${
-            result === "WIN" ? "text-green-800" : "text-red-400"
-          } font-semibold text-xl`}
+            result === "WON"
+              ? "text-green-800 animate-bounce"
+              : result === "LOSS"
+              ? "text-red-800 animate-bounce"
+              : ""
+          } font-semibold text-xl `}
         >
-          {result}
+          {!result ? "-" : result === 'WON' ? 'WON 🎉' :'LOSS :('}
         </span>
       </h1>
     </div>
