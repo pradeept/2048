@@ -1,6 +1,6 @@
 "use client";
 
-import { initializeBoard } from "@/lib/initialize";
+import { initializeBoard } from "@/lib/initializeBoard";
 import { randomIndex } from "@/lib/random";
 import { useBoardStore } from "@/stores/board-store";
 import { tileColor } from "@/utils/tile-color";

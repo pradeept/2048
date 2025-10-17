@@ -2,7 +2,7 @@ import { Board } from "@/types/board";
 
 // create a bord with specified size
 export const createCustomBoard = (size: number): Board => {
-  const customBoard = [];
+  const customBoard: Board = [];
 
   for (let i = 0; i < size; i++) {
     const row = [];

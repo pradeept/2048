@@ -2,7 +2,7 @@ import { Directions } from "@/types/board";
 import { useBoardStore } from "@/stores/board-store";
 
 // merge identical tiles if they collide while sliding
-export const merge = (row: number[], direction: Directions): number[] => {
+export const mergeTiles = (row: number[], direction: Directions): number[] => {
   const mergedRow: number[] = [...row]; // deep copy the row
 
   // check for similar value in next tile
