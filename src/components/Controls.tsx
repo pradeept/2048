@@ -128,11 +128,13 @@ export default function Controls() {
           onChange={(e) => setGridLength(e.target.value)}
           className='border w-10 h-8 text-center rounded border-gray-300 remove-arrow'
         />
-        {Number(gridLength) < 4 || Number(gridLength) > 10 ? (
+        {Number(gridLength) < 2 || Number(gridLength) > 100 ? (
           <X className='text-red-400 cursor-pointer' />
         ) : (
           <Check
-            className='text-green-400 cursor-pointer'
+            className={`${
+              Number(gridLength) > 10 ? "text-yellow-400" : "text-green-400"
+            } cursor-pointer`}
             onClick={handleBoardChange}
           />
         )}
