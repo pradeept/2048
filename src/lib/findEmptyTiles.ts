@@ -1,17 +1,15 @@
 import { Board } from "@/types/board";
 
-// find and return empty tiles from the given board
+// find emptyTiles from the board
 export const findEmptyTiles = (board: Board): number[][] => {
-  const emptyTiles: number[][] = [];
-
-  const boardSize = board.length;
-
-  for (let i = 0; i < boardSize; i++) {
-    for (let j = 0; j < boardSize; j++) {
-      if (board[i][j] === 0) {
-        emptyTiles.push([i, j]);
-      }
-    }
-  }
+  let emptyTiles: number[][] = [];
+  
+  emptyTiles = board
+    .flatMap((row, rIndex) => // flatten 2D array and filter null values
+      row.map((val, cIndex) => (val === 0 ? [rIndex, cIndex] : null))
+    )
+    .filter((indices) => indices !== null);
+  console.log(emptyTiles);
   return emptyTiles;
 };
+
