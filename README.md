@@ -49,9 +49,9 @@ npm run dev
 
 - **Game Wind:** If you manage to create a tile with value **2048** you win the game.
 
-- **\*\*Board Size:** You can change the length of the board **from 4x4 till 10x10**. [The board size is limited to 10x10 to maintain visual clarity and to keep the gameplay engaging].
+- **\*\*Board Size:** You can change the board size **from 2x2 till 100x100** (although, it can be set to YxY, considering gameplay experience it is locked to minimum to 2x2 and max to 100x100). 
 
-NOTE: _currently the game is only playable on a computer with keyboard attached to it._
+#### [For better gameplay experience and visual clarity -- board size shall be to set max 10x10].
 
 ## Live:
 
