@@ -9,7 +9,6 @@ export const findEmptyTiles = (board: Board): number[][] => {
       row.map((val, cIndex) => (val === 0 ? [rIndex, cIndex] : null))
     )
     .filter((indices) => indices !== null);
-  console.log(emptyTiles);
   return emptyTiles;
 };
 

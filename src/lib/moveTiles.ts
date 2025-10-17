@@ -1,6 +1,7 @@
 import { Board, Directions } from "@/types/board";
 import { shiftZeros } from "./shiftZeros";
 import { mergeTiles } from "./mergeTiles";
+import { createCustomBoard } from "./createCustomBoard";
 
 // move tiles based on direction
 // algo: shiftzeros -> merge tiles -> shiftzeros
@@ -11,7 +12,7 @@ export const moveTiles = (board: Board, direction: Directions) => {
   let copiedBoard = JSON.parse(JSON.stringify(board));
 
   if (direction === "up" || direction === "down") {
-    copiedBoard = rotateBoard(board, "right"); 
+    copiedBoard = rotateBoard(board, "right");
   }
 
   for (let i = 0; i < copiedBoard[0].length; i++) {
@@ -36,10 +37,11 @@ const rotateBoard = (
   board: Board,
   direction: Omit<Directions, "up" | "down">
 ): Board => {
-  const rotatedMatrix = JSON.parse(JSON.stringify(board));
+  const rotatedMatrix = createCustomBoard(board.length);
+  const boardSize = board.length;
 
-  for (let i = 0; i < board[0].length; i++) {
-    for (let j = 0; j < board[0].length; j++) {
+  for (let i = 0; i < boardSize; i++) {
+    for (let j = 0; j < boardSize; j++) {
       if (direction === "right") {
         rotatedMatrix[i][j] = board[j][i];
       } else {
@@ -47,5 +49,6 @@ const rotateBoard = (
       }
     }
   }
+
   return rotatedMatrix;
 };
