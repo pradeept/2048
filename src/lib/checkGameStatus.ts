@@ -7,32 +7,21 @@ import { useBoardStore } from "@/stores/board-store";
     - If there is a 2048 tile => WIN, but the game doesn't stop.
 */
 
-//
+// check all tiles are filled and can't be merged horizontally and vertically
 export const checkGameStatus = (): boolean => {
   const board = useBoardStore.getState().board;
 
-  //check if all tiles are filled
-  for (let i = 0; i < board.length; i++) {
-    for (let j = 0; j < board[i].length; j++) {
-      if (board[i][j] === 0) {
-        return true; // true - if an empty tile exists
-      }
-    }
-  }
+  const isAllTilesFilled = board.some((row) => row.some((tile) => tile === 0));
 
-  //check if a tile can be merged vertically or horizontally
-  for (let i = 0; i < board.length; i++) {
-    for (let j = 0; j < board.length; j++) {
-      // check right neighbor (horizontal merge)
-      if (j < board[i].length - 1 && board[i][j] === board[i][j + 1]) {
-        return true;
-      }
-      // check bottom neighbor (vertical merge)
-      if (i < board.length - 1 && board[i][j] === board[i + 1][j]) {
-        return true;
-      }
-    }
-  }
-  //if there are no empty tiles and no possible merges return false
-  return false;
+  const isHorizontallyMergeable = board.some((row) =>
+    row.some(
+      (val, idx, current_row) =>
+        idx < row.length - 1 && val === current_row[idx + 1]
+    )
+  );
+  
+  const isVerticallyMergeable = board.some((row, i) =>
+    row.some((val, j) => i < row.length - 1 && val === board[i + 1][j])
+  );
+  return isAllTilesFilled || isHorizontallyMergeable || isVerticallyMergeable;
 };

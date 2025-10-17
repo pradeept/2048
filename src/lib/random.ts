@@ -1,23 +1,29 @@
 import { Board } from "@/types/board";
 import { findEmptyTiles } from "./findEmptyTiles";
 
+// add a random tile at a random empty position
 export const addRandomTile = (board: Board): Board => {
-  const modifiedBoard = [...board];
+  const modifiedBoard: Board = JSON.parse(JSON.stringify(board));
+  const boardSize = modifiedBoard.length;
 
   // find empty tiles
-  const emptyTiles = findEmptyTiles(board);
-  // no empty tiles left
-  if (emptyTiles.length === 0) {
+  const emptyTiles = findEmptyTiles(modifiedBoard);
+  const numberOfEmptyTiles = emptyTiles.length;
+
+  // return same board
+  if (numberOfEmptyTiles === 0) {
     return modifiedBoard;
   }
-  // for generating random tile
-  const randomNum = Math.floor(Math.random() * emptyTiles.length);
+
+  const randomNum = getRandom(numberOfEmptyTiles);
   const randomIndex = emptyTiles[randomNum];
 
   // if number of empty tiles are 30-40% of board length add 4 as random tile value
-  // otherwise stick to 2 as the random tile value
-  const percentOfEmptyTiles = (emptyTiles.length / board.length) * 2 * 100;
-  if (percentOfEmptyTiles >= 30 && percentOfEmptyTiles <= 40) {
+  const percentageOfEmptyTiles = getPercantageOfEmptyTiles(
+    numberOfEmptyTiles,
+    boardSize
+  );
+  if (percentageOfEmptyTiles >= 30 && percentageOfEmptyTiles <= 40) {
     modifiedBoard[randomIndex[0]][randomIndex[1]] = 4;
   } else {
     modifiedBoard[randomIndex[0]][randomIndex[1]] = 2;
@@ -38,4 +44,15 @@ export const randomIndex = (
     randomColumn = Math.floor(Math.random() * gridSize);
   }
   return { row: randomRow, column: randomColumn };
+};
+
+const getRandom = (boundary: number): number => {
+  return Math.floor(Math.random() * boundary);
+};
+
+const getPercantageOfEmptyTiles = (
+  numberOfEmptyTiles: number,
+  boardSize: number
+) => {
+  return (numberOfEmptyTiles / (boardSize * 2)) * 100;
 };

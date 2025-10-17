@@ -1,7 +1,7 @@
 "use client";
 
 import { checkGameStatus } from "@/lib/checkGameStatus";
-import { initializeBoard } from "@/lib/initialize";
+import { initializeBoard } from "@/lib/initializeBoard";
 import { moveTiles } from "@/lib/moveTiles";
 import { addRandomTile, randomIndex } from "@/lib/random";
 import { useBoardStore } from "@/stores/board-store";
