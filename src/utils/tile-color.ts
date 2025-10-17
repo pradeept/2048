@@ -1,3 +1,4 @@
+// map colors to numbers
 export const tileColor: Record<number, string> = {
   2: "bg-[#eee4da]",
   4: "bg-[#ede0c8]",

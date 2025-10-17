@@ -18,6 +18,8 @@ import React, { useEffect, useState } from "react";
 export default function Controls() {
   const { setBoard } = useBoardStore();
   const [gridLength, setGridLength] = useState("4");
+
+  // set keyboard listener for movement controls
   useEffect(() => {
     document.addEventListener("keydown", handleKeyDown);
     return () => {
@@ -28,13 +30,14 @@ export default function Controls() {
   // key press handler
   const handleKeyDown = (e: KeyboardEvent) => {
     const key = e.key;
-    // check if game is over
+    // check if the game is over
     const gameStatus: boolean = checkGameStatus();
     if (!gameStatus) {
       const setResult = useBoardStore.getState().setResult;
-      setResult("LOSS");
+      setResult("LOSS"); // set the result and exit
       return;
     }
+
     switch (key) {
       case "ArrowUp":
         handleMovement("up");
@@ -53,24 +56,19 @@ export default function Controls() {
     }
   };
 
-  // helper for handling tile movement
+  // helper function, moves tiles, adds a randomtile
+  // and updates the board
   const handleMovement = (direction: Directions) => {
-    // move tiles (squeeze 0's, merge and squeeze 0's)
-    // get updated board from the store
-    const movedTiles = moveTiles(useBoardStore.getState().board, direction);
-
-    // add a random tile
+    const board = useBoardStore.getState().board;
+    const movedTiles = moveTiles(board, direction);
     const newBoard = addRandomTile(movedTiles);
-
-    // update the board
     setBoard(newBoard);
   };
 
-  // reset the board to initial state
+  // restart the game by resetting board, score and result
   const handleRestart = () => {
     const resetBoard = useBoardStore.getState().resetBoard;
     resetBoard();
-    // reset score
     const resetScore = useBoardStore.getState().resetScore;
     resetScore();
     const resetResult = useBoardStore.getState().resetResult;
@@ -79,18 +77,17 @@ export default function Controls() {
     initializeBoard(board, randomIndex);
   };
 
-  // reset the board to custom grid size
+  // create new board with specified size
   const handleBoardChange = () => {
-    // update board length
     const setBoardLength = useBoardStore.getState().setBoardLength;
     setBoardLength(Number(gridLength));
-    // restart the game with new board size
     handleRestart();
   };
 
   return (
     <div className='flex gap-6 items-top'>
       <div className='flex flex-col justify-center items-center gap-1'>
+        {/* Key Bindings */}
         <div
           className='flex gap-3 border rounded-full p-2 '
           title='Use the key bindings'
@@ -106,12 +103,14 @@ export default function Controls() {
           <ArrowBigLeftDash size={12} className='rotate-90' />
         </div>
       </div>
+      {/* Restart */}
       <RotateCw
         id='restart'
         className='hover:scale-110 transition-all cursor-pointer'
         size={30}
         onClick={handleRestart}
       />
+      {/* Custom Grid */}
       <div className='flex gap-2 items-center'>
         <input
           type='number'

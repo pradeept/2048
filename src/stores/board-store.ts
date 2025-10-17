@@ -53,24 +53,32 @@ export const useBoardStore = create<BoardState>((set) => ({
       result: newResult,
     }));
   },
+
+  // reset board
   resetBoard: () => {
     set((state: BoardState) => ({
       ...state,
       board: createCustomBoard(state.boardLength),
     }));
   },
+
+  // set board size
   setBoardLength: (newLength: number) => {
     set((state) => ({
       ...state,
       boardLength: newLength,
     }));
   },
+
+  // reset score
   resetScore: () => {
     set((state) => ({
       ...state,
       score: 0,
     }));
   },
+
+  // reset result
   resetResult: () => {
     set((state) => ({
       ...state,

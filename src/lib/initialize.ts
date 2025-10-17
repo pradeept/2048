@@ -1,5 +1,7 @@
 import { Board } from "@/types/board";
 
+// higher order function
+// initialize the board with 2 random tiles
 export const initializeBoard = (
   board: Board,
   random: (gridSize: number) => { row: number; column: number }

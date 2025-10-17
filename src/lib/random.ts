@@ -2,7 +2,6 @@ import { Board } from "@/types/board";
 import { findEmptyTiles } from "./findEmptyTiles";
 
 export const addRandomTile = (board: Board): Board => {
-  // deep copy the board
   const modifiedBoard = [...board];
 
   // find empty tiles

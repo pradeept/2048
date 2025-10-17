@@ -1,5 +1,6 @@
 import { Board } from "@/types/board";
 
+// find and return empty tiles from the given board
 export const findEmptyTiles = (board: Board): number[][] => {
   const emptyTiles = [];
   const boardSize = board[0].length;

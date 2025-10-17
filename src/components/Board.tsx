@@ -9,6 +9,7 @@ import { useEffect } from "react";
 export default function Board() {
   const { board, setBoard } = useBoardStore();
 
+  // initialize the board with default size and 2 random  tiles
   useEffect(() => {
     const initBoard = initializeBoard(board, randomIndex);
     setBoard(initBoard);
@@ -16,11 +17,13 @@ export default function Board() {
 
   return (
     <div className='black'>
+      {/* Table is used to render game board */}
       <table className=' text-slate-900 font-bold'>
         <tbody>
           {board.map((row, rowIndex) => (
             <tr key={rowIndex} className=''>
               {row.map((cell, cellIndex) => (
+                // set tile color based on cell/tile value
                 <td
                   key={cellIndex}
                   className={`bg-[#cdc1b4]  ${
